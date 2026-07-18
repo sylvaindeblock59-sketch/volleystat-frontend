@@ -1,0 +1,17 @@
+export const PLAYERS = [
+  { number: 2,  prenom: "Romane",   nom: "Finet",      poste: "Réceptionneuse" },
+  { number: 3,  prenom: "Doriane",  nom: "Ehret",       poste: "Pointue" },
+  { number: 4,  prenom: "Maeline",  nom: "Facon",       poste: "Centrale" },
+  { number: 6,  prenom: "Sarah",    nom: "Gokelaere",   poste: "Passeuse" },
+  { number: 7,  prenom: "Chloé",    nom: "Adam",        poste: "Pointue" },
+  { number: 8,  prenom: "Marjorie", nom: "Machen",      poste: "Libéro" },
+  { number: 9,  prenom: "Zoé",      nom: "Vanmerris",   poste: "Centrale" },
+  { number: 10, prenom: "Candice",  nom: "Eeckhoutte",  poste: "Réceptionneuse" },
+  { number: 11, prenom: "Alix",     nom: "Lamerand",    poste: "Réceptionneuse" },
+  { number: 12, prenom: "Julie",    nom: "Adam",        poste: "Centrale" },
+  { number: 13, prenom: "Elise",    nom: "Deremetz",    poste: "Réceptionneuse" },
+  { number: 14, prenom: "Maelle",   nom: "Moreels",     poste: "Libéro" },
+  { number: 16, prenom: "Zélie",    nom: "Veron",       poste: "Réceptionneuse" },
+  { number: 19, prenom: "Marine",   nom: "Degrendel",   poste: "Passeuse" },
+  { number: 20, prenom: "Manon",    nom: "Clyti",       poste: "Centrale" },
+];
