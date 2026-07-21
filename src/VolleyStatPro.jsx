@@ -7,6 +7,7 @@ import {
 import VideoTagger from "./VideoTagger";
 import LiveTagger from "./LiveTagger";
 import Seasons from "./Seasons";
+import Exercices from "./Exercices";
 import ImportFFVB from "./ImportFFVB";
 import { PLAYERS } from "./data/players";
 
@@ -2009,6 +2010,7 @@ const handleUpdateScores = async (matchId, sets) => {
           <button style={s.navBtn(page === "team")} onClick={() => setPage("team")}>🏆 Équipe</button>
           <button style={s.navBtn(page === "seasons")} onClick={() => setPage("seasons")} title="Gérer les saisons et les effectifs">🗓 Saisons</button>
           <button style={s.navBtn(page === "import")} onClick={() => setPage("import")} title="Importer une feuille de match FFVB (PDF)">📄 Import FDM</button>
+          <button style={s.navBtn(page === "exercices")} onClick={() => setPage("exercices")} title="Bibliothèque d'exercices">📚 Exercices</button>
           <button style={s.navBtn(page === "new")} onClick={() => setPage("new")}>+ Nouveau</button>
           {page === "match" && selectedMatch && (
             <button style={s.navBtn(true)}>{selectedMatch.equipeA} vs {selectedMatch.equipeB}</button>
@@ -2071,6 +2073,9 @@ const handleUpdateScores = async (matchId, sets) => {
           <Seasons onBack={() => setPage("dashboard")} C={C} s={s}
             onSeasonsUpdated={() => { loadSeasons(); refreshMatches(); }} />
         )}
+        {page === "exercices" && (
+  <Exercices C={C} s={s} onBack={() => setPage("dashboard")} />
+)}
         {page === "import" && (
           <ImportFFVB
             activeSeason={activeSeason}
