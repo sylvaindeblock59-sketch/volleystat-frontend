@@ -2109,7 +2109,11 @@ const handleUpdateScores = async (matchId, sets) => {
     onClose={() => setLiveMode(false)} />
 )}
       {analysisMatch && (
-        <MatchAnalysisModal match={analysisMatch} onClose={() => setAnalysisMatch(null)} />
+        <MatchAnalysisModal
+          matchId={analysisMatch.id}
+          matchLabel={`${analysisMatch.equipeA} vs ${analysisMatch.equipeB}`}
+          API_BASE={API_URL}
+          onClose={() => setAnalysisMatch(null)} />
       )}
     </div>
   );
