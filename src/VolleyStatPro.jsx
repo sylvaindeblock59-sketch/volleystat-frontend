@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+    import { useState, useRef, useEffect, useCallback } from "react";
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis,
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
@@ -7,9 +7,9 @@ import {
 import VideoTagger from "./VideoTagger";
 import LiveTagger from "./LiveTagger";
 import Seasons from "./Seasons";
-import Exercices from "./Exercices";
 import ImportFFVB from "./ImportFFVB";
 import { PLAYERS } from "./data/players";
+import MatchAnalysisModal from "./MatchAnalysisModal";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const C = {
@@ -1136,7 +1136,7 @@ function SeasonBilan({ matches }) {
   );
 }
 // ─── Pages ────────────────────────────────────────────────────────────────────
-function Dashboard({ matches, onSelect, onDelete, onNew }) {
+function Dashboard({ matches, onSelect, onDelete, onNew, onAnalyze }) {
   return (
     <div>
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:24 }}>
@@ -1186,6 +1186,7 @@ function Dashboard({ matches, onSelect, onDelete, onNew }) {
                   </div>
                 </div>
                 <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                  <button style={s.btn("primary")} onClick={e=>{e.stopPropagation();onAnalyze(m);}}>🤖 Analyse IA</button>
                   <button style={s.btn("ghost")} onClick={e=>{e.stopPropagation();onDelete(m.id);}}>🗑 Supprimer</button>
                   <span style={{ color:C.gray400, fontSize:20 }}>›</span>
                 </div>
@@ -1889,6 +1890,7 @@ export default function App() {
   const [selectedMatchId, setSelectedMatchId] = useState(null);
   const [videoMode, setVideoMode]     = useState(false);
   const [liveMode, setLiveMode]       = useState(false);
+  const [analysisMatch, setAnalysisMatch] = useState(null);
 
   // ── Saisons ─────────────────────────────────────────────────────────
   const [seasons, setSeasons]         = useState([]);
@@ -2010,7 +2012,6 @@ const handleUpdateScores = async (matchId, sets) => {
           <button style={s.navBtn(page === "team")} onClick={() => setPage("team")}>🏆 Équipe</button>
           <button style={s.navBtn(page === "seasons")} onClick={() => setPage("seasons")} title="Gérer les saisons et les effectifs">🗓 Saisons</button>
           <button style={s.navBtn(page === "import")} onClick={() => setPage("import")} title="Importer une feuille de match FFVB (PDF)">📄 Import FDM</button>
-          <button style={s.navBtn(page === "exercices")} onClick={() => setPage("exercices")} title="Bibliothèque d'exercices">📚 Exercices</button>
           <button style={s.navBtn(page === "new")} onClick={() => setPage("new")}>+ Nouveau</button>
           {page === "match" && selectedMatch && (
             <button style={s.navBtn(true)}>{selectedMatch.equipeA} vs {selectedMatch.equipeB}</button>
@@ -2057,7 +2058,8 @@ const handleUpdateScores = async (matchId, sets) => {
         {page === "dashboard" && (
           <Dashboard matches={filteredMatches}
             onSelect={id => { setSelectedMatchId(id); setPage("match"); }}
-            onDelete={handleDelete} onNew={() => setPage("new")} />
+            onDelete={handleDelete} onNew={() => setPage("new")}
+            onAnalyze={m => setAnalysisMatch(m)} />
         )}
        {page === "match" && selectedMatch && (
           <MatchView match={selectedMatch} onBack={() => setPage("dashboard")}
@@ -2073,9 +2075,6 @@ const handleUpdateScores = async (matchId, sets) => {
           <Seasons onBack={() => setPage("dashboard")} C={C} s={s}
             onSeasonsUpdated={() => { loadSeasons(); refreshMatches(); }} />
         )}
-        {page === "exercices" && (
-  <Exercices C={C} s={s} onBack={() => setPage("dashboard")} />
-)}
         {page === "import" && (
           <ImportFFVB
             activeSeason={activeSeason}
@@ -2109,6 +2108,10 @@ const handleUpdateScores = async (matchId, sets) => {
     onStatsUpdate={handleVideoStats}
     onClose={() => setLiveMode(false)} />
 )}
+      {analysisMatch && (
+        <MatchAnalysisModal match={analysisMatch} onClose={() => setAnalysisMatch(null)} />
+      )}
     </div>
   );
 }
+    
